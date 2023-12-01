@@ -67,7 +67,12 @@ def predict():
                                probability_dog=probability_dog)
 
     except Exception as e:
-        return render_template('error.html', error_message=str(e))
+        error_message = f"An error occurred: {str(e)}"
+        error_details = repr(e)  # Include more details if needed
+        print(error_message)
+        print(error_details)
+        return render_template('error.html', error_message=error_message, error_details=error_details)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
