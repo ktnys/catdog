@@ -11,7 +11,10 @@
         <h1>Error</h1>
     </div>
     <div class="container result-container">
-        <p>{{ error_message }}</p>
+        <p>An error occurred: {{ error_message }}</p>
+        {% if error_details %}
+            <p>Error details: {{ error_details }}</p>
+        {% endif %}
         <a href="/">Go back</a>
     </div>
 </body>
