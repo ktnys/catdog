@@ -11,7 +11,7 @@ import sklearn
 app = Flask(__name__)
 
 # Load the trained SVM model
-svm_classifier = joblib.load('C:/Users/tonyn/math457/svm_model2.pkl')
+svm_classifier = joblib.load('svm_model2.pkl')
 
 # Load the pre-trained ResNet-50 model
 resnet = models.resnet50(pretrained=True)
