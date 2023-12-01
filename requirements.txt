@@ -27,5 +27,5 @@ waitress==2.1.2
 Werkzeug==3.0.0
 wget==3.2
 Pillow==8.4.0 
-torch==2.1.1
-torchvision==0.16
+torch==2.1.0
+torchvision==0.16.0
