@@ -1,12 +1,11 @@
 from flask import Flask, render_template, request
 import joblib
-import numpy as np
 from PIL import Image
 from torchvision import transforms
 import torch
 from torchvision import models
 import torch.nn as nn
-import sklearn
+import io
 
 app = Flask(__name__)
 
@@ -24,9 +23,8 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-
-def extract_features_from_image(image_path):
-    image = Image.open(image_path).convert('RGB')
+def extract_features_from_image(file_storage):
+    image = Image.open(io.BytesIO(file_storage.read())).convert('RGB')
     image = transform(image).unsqueeze(0)
 
     # Move the image tensor to the GPU if available
@@ -41,11 +39,9 @@ def extract_features_from_image(image_path):
 
     return features
 
-
 @app.route('/')
 def home():
     return render_template('index.html')
-
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -53,12 +49,8 @@ def predict():
         # Get the uploaded file from the form
         uploaded_file = request.files['file']
 
-        # Save the file temporarily
-        temp_path = 'temp_image.jpg'
-        uploaded_file.save(temp_path)
-
         # Extract features from the uploaded image
-        image_features = extract_features_from_image(temp_path)
+        image_features = extract_features_from_image(uploaded_file)
 
         # Make a prediction using the SVM model
         prediction_label = svm_classifier.predict(image_features.reshape(1, -1))[0]
@@ -77,6 +69,5 @@ def predict():
     except Exception as e:
         return render_template('error.html', error_message=str(e))
 
-
-if __name__ == '__main__':
-    app.run(debug=True)
+#if __name__ == '__main__':
+#    app.run(debug=True)
