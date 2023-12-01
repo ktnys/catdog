@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cat or Dog Classifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="header container">
+        <h1>Cat or Dog Classifier</h1>
+    </div>
+    <div class="container form-container">
+        <form action="/predict" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" accept=".jpg, .jpeg, .png" required>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+</body>
+</html>
